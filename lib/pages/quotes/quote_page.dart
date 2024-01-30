@@ -5,6 +5,18 @@ import 'package:bloc_architecture/pages/quotes/widgets/quote_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+class QuotePageWrapperProvider extends StatelessWidget {
+  const QuotePageWrapperProvider({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => QuoteBloc(),
+      child: QuotePage(),
+    );
+  }
+}
+
 class QuotePage extends StatelessWidget {
   const QuotePage({super.key});
 
@@ -20,6 +32,7 @@ class QuotePage extends StatelessWidget {
         width: double.infinity,
         padding: EdgeInsets.all(20),
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             // QuoteWidget(
             //   quote: "Be yourself ; everyone else is already taken",
@@ -28,23 +41,27 @@ class QuotePage extends StatelessWidget {
             // CircularProgressIndicator(
             //   color: Colors.purple,
             // ),
-            Expanded(child: Center(
-              child:
-                  BlocBuilder<QuoteBloc, QuoteState>(builder: (context, state) {
-                if (state is QuoteInitial) {
-                  return Text("your quote is waiting");
-                } else if (state is QuoteStateLoading) {
-                  return CircularProgressIndicator(
-                    color: Colors.purple,
-                  );
-                } else if (state is QuoteStateLoaded) {
-                  return QuoteWidget(quote: state.quote);
-                } else if (state is QuoteStateError) {
-                  return ErrorMessage(error: state.error);
-                }
-                return ErrorMessage(error: "something went wrong");
-              }),
-            )),
+            SizedBox(
+              height: 100,
+              width: 300,
+              child: Center(
+                child: BlocBuilder<QuoteBloc, QuoteState>(
+                    builder: (context, state) {
+                  if (state is QuoteInitial) {
+                    return Text("your quote is waiting");
+                  } else if (state is QuoteStateLoading) {
+                    return CircularProgressIndicator(
+                      color: Colors.purple,
+                    );
+                  } else if (state is QuoteStateLoaded) {
+                    return QuoteWidget(quote: state.quote);
+                  } else if (state is QuoteStateError) {
+                    return ErrorMessage(error: state.error);
+                  }
+                  return ErrorMessage(error: "something went wrong");
+                }),
+              ),
+            ),
             CustomButton()
           ],
         ),

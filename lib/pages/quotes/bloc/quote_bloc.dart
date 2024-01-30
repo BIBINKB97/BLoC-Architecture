@@ -6,12 +6,12 @@ part 'quote_state.dart';
 
 class QuoteBloc extends Bloc<QuoteEvent, QuoteState> {
   QuoteBloc() : super(QuoteInitial()) {
-    on<QuoteRequestEvent>((event, emit) {
+    on<QuoteRequestEvent>((event, emit) async {
       emit(QuoteStateLoading());
       print("req triggerd");
 
-      Future.delayed(Duration(seconds: 3), () {
-        emit(QuoteStateLoaded(quote: "your Quote is loaded"));
+      await Future.delayed(Duration(seconds: 1), () {
+        emit(QuoteStateLoaded(quote: " be yourself ; else is alredy taken"));
       });
     });
   }
