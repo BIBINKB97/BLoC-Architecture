@@ -1,6 +1,4 @@
 import 'package:bloc_architecture/pages/quotes/widgets/custom_button.dart';
-import 'package:bloc_architecture/pages/quotes/widgets/error_message.dart';
-import 'package:bloc_architecture/pages/quotes/widgets/quote_widget.dart';
 import 'package:flutter/material.dart';
 
 class QuotePage extends StatelessWidget {
